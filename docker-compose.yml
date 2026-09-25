@@ -1,0 +1,92 @@
+services:
+  # ── FactChat API ──────────────────────────────────────────────────────
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./storage:/app/storage          # persist papers & temp session files
+    depends_on:
+      milvus:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+
+  # ── FactChat Frontend ──────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_BACKEND_URL=http://backend:8000
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # ── Milvus infrastructure ─────────────────────────────────────────────
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.5
+    environment:
+      ETCD_AUTO_COMPACTION_MODE: revision
+      ETCD_AUTO_COMPACTION_RETENTION: "1000"
+      ETCD_QUOTA_BACKEND_BYTES: "4294967296"
+      ETCD_SNAPSHOT_COUNT: "50000"
+    command: >
+      etcd
+      -advertise-client-urls=http://etcd:2379
+      -listen-client-urls=http://0.0.0.0:2379
+      --data-dir /etcd
+    volumes:
+      - etcd-data:/etcd
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio:RELEASE.2024-12-18T13-15-44Z
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    command: minio server /minio_data --console-address ":9001"
+    ports:
+      - "9001:9001"
+      - "9000:9000"
+    volumes:
+      - minio-data:/minio_data
+    restart: unless-stopped
+
+  milvus:
+    image: milvusdb/milvus:v2.5.5
+    command: ["milvus", "run", "standalone"]
+    environment:
+      ETCD_ENDPOINTS: etcd:2379
+      MINIO_ADDRESS: minio:9000
+    ports:
+      - "19530:19530"
+      - "9091:9091"
+    depends_on:
+      - etcd
+      - minio
+    volumes:
+      - milvus-data:/var/lib/milvus
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      interval: 30s
+      timeout: 10s
+      start_period: 60s
+      retries: 5
+
+volumes:
+  etcd-data:
+  minio-data:
+  milvus-data:

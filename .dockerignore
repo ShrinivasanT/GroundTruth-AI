@@ -1,0 +1,48 @@
+# Version control
+.git
+.gitignore
+
+# Python artefacts
+__pycache__
+*.pyc
+*.pyo
+*.egg-info
+.eggs
+dist
+build
+
+# Virtual environments
+.venv
+venv
+env
+
+# IDE & editor files
+.vscode
+.idea
+*.swp
+*.swo
+
+# Runtime storage (mounted as a volume, not baked into the image)
+storage/papers
+storage/temp
+
+# Documentation & planning files
+*.md
+!README.md
+Implementation.md
+New_Project_Scope.md
+AGENTS.md
+
+# Environment secrets
+.env
+
+# Tests (not needed in production image)
+tests/
+
+# Scripts (not needed in production image)
+scripts/
+
+# Docker files (prevent recursive COPY)
+Dockerfile
+docker-compose.yml
+.dockerignore

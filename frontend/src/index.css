@@ -1,0 +1,1172 @@
+/* ==========================================================================
+   Professor X — Design System
+   Comprehensive CSS foundation using CSS custom properties (design tokens),
+   Material Design 3 color system, Radix UI primitive overrides, and
+   vanilla utility classes.
+   ========================================================================== */
+
+/* ==========================================================================
+   1. CSS Reset & Base
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Nunito Sans', sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+  background: var(--color-background);
+  color: var(--color-on-background);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+#root {
+  isolation: isolate;
+}
+
+/* ==========================================================================
+   2. Light Theme — Design Tokens
+   ========================================================================== */
+
+:root,
+[data-theme='light'] {
+  /* Primary */
+  --color-primary: #4a7c59;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #78a886;
+  --color-on-primary-container: #d8f0de;
+  --color-primary-fixed: #c8e8d0;
+  --color-primary-fixed-dim: #8ecf9e;
+
+  /* Secondary */
+  --color-secondary: #6b6358;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #f0e8db;
+  --color-on-secondary-container: #5e5548;
+
+  /* Tertiary */
+  --color-tertiary: #705c30;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #c4a66a;
+  --color-on-tertiary-container: #554020;
+
+  /* Background */
+  --color-background: #faf6f0;
+  --color-on-background: #2e3230;
+
+  /* Surface */
+  --color-surface: #faf6f0;
+  --color-on-surface: #2e3230;
+  --color-surface-variant: #e4e0d8;
+  --color-on-surface-variant: #4a4e4a;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f5f1ea;
+  --color-surface-container: #f0ece4;
+  --color-surface-container-high: #eae6de;
+  --color-surface-container-highest: #e4e0d8;
+  --color-surface-bright: #faf6f0;
+  --color-surface-dim: #dbd7cf;
+
+  /* Outline */
+  --color-outline: #74796e;
+  --color-outline-variant: #c4c8bc;
+
+  /* Inverse */
+  --color-inverse-surface: #2e3230;
+  --color-inverse-on-surface: #f5f0e8;
+  --color-inverse-primary: #8ecf9e;
+
+  /* Error */
+  --color-error: #b83230;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad8;
+  --color-on-error-container: #690005;
+
+  /* Typography */
+  --font-headline: 'Literata', serif;
+  --font-body: 'Nunito Sans', sans-serif;
+
+  /* Border Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(46, 50, 48, 0.04);
+  --shadow-md: 0 4px 20px rgba(46, 50, 48, 0.06);
+  --shadow-lg: 0 8px 30px rgba(46, 50, 48, 0.1);
+  --shadow-primary: 0 4px 20px rgba(74, 124, 89, 0.15);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow: 500ms ease;
+}
+
+/* ==========================================================================
+   3. Dark Theme — Design Tokens
+   ========================================================================== */
+
+[data-theme='dark'] {
+  /* Background */
+  --color-background: #1a1c1a;
+  --color-on-background: #e2dfd8;
+
+  /* Surface */
+  --color-surface: #1a1c1a;
+  --color-on-surface: #e2dfd8;
+  --color-surface-variant: #42463e;
+  --color-on-surface-variant: #c4c8bc;
+  --color-surface-container-lowest: #0f120f;
+  --color-surface-container-low: #1e211e;
+  --color-surface-container: #232623;
+  --color-surface-container-high: #2d302d;
+  --color-surface-container-highest: #383b38;
+  --color-surface-bright: #383b38;
+  --color-surface-dim: #1a1c1a;
+
+  /* Primary */
+  --color-primary: #8ecf9e;
+  --color-on-primary: #003919;
+  --color-primary-container: #2a6038;
+  --color-on-primary-container: #c8e8d0;
+
+  /* Inverse */
+  --color-inverse-surface: #e2dfd8;
+  --color-inverse-on-surface: #2e3230;
+  --color-inverse-primary: #4a7c59;
+
+  /* Outline */
+  --color-outline: #8d9286;
+  --color-outline-variant: #42463e;
+
+  /* Secondary */
+  --color-secondary: #d4ccbf;
+  --color-on-secondary: #353025;
+  --color-secondary-container: #4a4538;
+  --color-on-secondary-container: #f0e8db;
+
+  /* Tertiary */
+  --color-tertiary: #dcc48e;
+  --color-on-tertiary: #3e2f0c;
+  --color-tertiary-container: #554020;
+  --color-on-tertiary-container: #f8e0a8;
+
+  /* Error */
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad8;
+
+  /* Shadows (deeper for dark mode) */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.4);
+  --shadow-primary: 0 4px 20px rgba(142, 207, 158, 0.15);
+}
+
+/* ==========================================================================
+   4. Typography Utility Classes
+   ========================================================================== */
+
+.font-headline {
+  font-family: var(--font-headline);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.text-display-lg {
+  font-family: var(--font-headline);
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.text-display-md {
+  font-family: var(--font-headline);
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+.text-headline-lg {
+  font-family: var(--font-headline);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.text-headline-md {
+  font-family: var(--font-headline);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+}
+
+.text-title-lg {
+  font-family: var(--font-headline);
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.text-title-md {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.text-body-lg {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.text-body-md {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.text-label-lg {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.text-label-md {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   5. Animation Keyframes
+   ========================================================================== */
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes slideUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes typingBlink {
+  0%, 80%, 100% { opacity: 0.3; }
+  40% { opacity: 1; }
+}
+
+@keyframes streamIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes overlayShow {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ==========================================================================
+   6. Animation Utility Classes
+   ========================================================================== */
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* ==========================================================================
+   7. Radix UI — Dialog
+   ========================================================================== */
+
+.dialog-overlay {
+  background: rgba(46, 50, 48, 0.2);
+  backdrop-filter: blur(4px);
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  animation: overlayShow 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dialog-content {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid color-mix(in srgb, var(--color-outline-variant) 20%, transparent);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 900px;
+  max-height: 85vh;
+  padding: 2.5rem;
+  z-index: 51;
+  animation: scaleIn 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+}
+
+.dialog-content:focus {
+  outline: none;
+}
+
+/* ==========================================================================
+   8. Radix UI — Tooltip
+   ========================================================================== */
+
+.tooltip-content {
+  background: var(--color-inverse-surface);
+  color: var(--color-inverse-on-surface);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.8125rem;
+  font-family: var(--font-body);
+  line-height: 1.5;
+  max-width: 280px;
+  z-index: 100;
+  box-shadow: var(--shadow-lg);
+  animation: fadeIn 200ms ease;
+}
+
+.tooltip-arrow {
+  fill: var(--color-inverse-surface);
+}
+
+/* ==========================================================================
+   9. Radix UI — Dropdown Menu
+   ========================================================================== */
+
+.dropdown-content {
+  background: var(--color-surface-container-low);
+  border-radius: var(--radius-lg);
+  padding: 0.375rem;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid color-mix(in srgb, var(--color-outline-variant) 30%, transparent);
+  min-width: 180px;
+  z-index: 100;
+  animation: scaleIn 200ms ease;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-family: var(--font-body);
+  color: var(--color-on-surface);
+  cursor: pointer;
+  outline: none;
+  transition: background var(--transition-fast);
+}
+
+.dropdown-item:hover,
+.dropdown-item[data-highlighted] {
+  background: var(--color-surface-variant);
+}
+
+.dropdown-separator {
+  height: 1px;
+  background: var(--color-outline-variant);
+  margin: 0.375rem 0;
+  opacity: 0.3;
+}
+
+/* ==========================================================================
+   10. Radix UI — ScrollArea
+   ========================================================================== */
+
+.scroll-area-root {
+  overflow: hidden;
+}
+
+.scroll-area-viewport {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.scroll-area-viewport > div {
+  display: block !important;
+}
+
+.scroll-area-scrollbar {
+  display: flex;
+  user-select: none;
+  touch-action: none;
+  padding: 2px;
+  transition: background 160ms ease-out;
+}
+
+.scroll-area-scrollbar:hover {
+  background: color-mix(in srgb, var(--color-outline-variant) 20%, transparent);
+}
+
+.scroll-area-scrollbar[data-orientation='vertical'] {
+  width: 8px;
+}
+
+.scroll-area-thumb {
+  flex: 1;
+  background: color-mix(in srgb, var(--color-outline) 40%, transparent);
+  border-radius: var(--radius-full);
+  position: relative;
+}
+
+.scroll-area-thumb:hover {
+  background: color-mix(in srgb, var(--color-outline) 60%, transparent);
+}
+
+/* ==========================================================================
+   11. Radix UI — Avatar
+   ========================================================================== */
+
+.avatar-root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  overflow: hidden;
+  user-select: none;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-container);
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.avatar-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-headline);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   12. Radix UI — Popover
+   ========================================================================== */
+
+.popover-content {
+  background: var(--color-surface-container-low);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid color-mix(in srgb, var(--color-outline-variant) 30%, transparent);
+  width: 280px;
+  z-index: 100;
+  animation: scaleIn 200ms ease;
+}
+
+.popover-arrow {
+  fill: var(--color-surface-container-low);
+}
+
+.popover-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+}
+
+/* ==========================================================================
+   13. Radix UI — RadioGroup
+   ========================================================================== */
+
+.radio-group-root {
+  display: flex;
+  gap: 1rem;
+}
+
+.radio-card {
+  flex: 1;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-xl);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.radio-card[data-state='checked'] {
+  border-color: var(--color-primary);
+  background: var(--color-surface-container-low);
+}
+
+.radio-card[data-state='unchecked'] {
+  background: var(--color-surface-container);
+  opacity: 0.6;
+}
+
+.radio-card[data-state='unchecked']:hover {
+  opacity: 1;
+  border-color: color-mix(in srgb, var(--color-outline-variant) 50%, transparent);
+}
+
+.radio-indicator {
+  width: 1rem;
+  height: 1rem;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-outline);
+}
+
+.radio-card[data-state='checked'] .radio-indicator {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: inset 0 0 0 2px var(--color-surface-container-low);
+}
+
+/* ==========================================================================
+   14. Radix UI — Switch
+   ========================================================================== */
+
+.switch-root {
+  width: 42px;
+  height: 25px;
+  background: var(--color-surface-variant);
+  border-radius: var(--radius-full);
+  position: relative;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  transition: background var(--transition-fast);
+}
+
+.switch-root[data-state='checked'] {
+  background: var(--color-primary);
+}
+
+.switch-thumb {
+  display: block;
+  width: 19px;
+  height: 19px;
+  background: white;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast);
+  transform: translateX(3px);
+  will-change: transform;
+}
+
+.switch-thumb[data-state='checked'] {
+  transform: translateX(20px);
+}
+
+/* ==========================================================================
+   15. Layout — App Shell
+   ========================================================================== */
+
+.app-shell {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-background);
+  color: var(--color-on-background);
+}
+
+/* ==========================================================================
+   16. Layout — Side Navigation
+   ========================================================================== */
+
+.sidenav {
+  display: none;
+  flex-direction: column;
+  height: 100%;
+  padding: 1rem;
+  width: 280px;
+  flex-shrink: 0;
+  background: var(--color-surface-container-low);
+  border-right: 1px solid color-mix(in srgb, var(--color-outline-variant) 30%, transparent);
+  transition: all var(--transition-normal);
+}
+
+@media (min-width: 768px) {
+  .sidenav {
+    display: flex;
+  }
+}
+
+/* ==========================================================================
+   17. Layout — Main Content
+   ========================================================================== */
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  background: var(--color-background);
+}
+
+/* ==========================================================================
+   18. Buttons
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-decoration: none;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-xl);
+  font-size: 1rem;
+  box-shadow: var(--shadow-primary);
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: var(--shadow-lg);
+  transform: scale(1.02);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn-surface {
+  background: var(--color-surface-container);
+  color: var(--color-on-surface-variant);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+}
+
+.btn-surface:hover:not(:disabled) {
+  background: var(--color-surface-variant);
+  color: var(--color-on-surface);
+}
+
+.btn-icon {
+  background: transparent;
+  color: var(--color-on-surface-variant);
+  padding: 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.btn-icon:hover:not(:disabled) {
+  background: var(--color-surface-container);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-on-surface-variant);
+  padding: 0.625rem 1rem;
+  border-radius: var(--radius-lg);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--color-surface-variant) 50%, transparent);
+  color: var(--color-on-surface);
+}
+
+/* ==========================================================================
+   19. Navigation Items
+   ========================================================================== */
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-on-surface-variant);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+}
+
+.nav-item:hover {
+  background: color-mix(in srgb, var(--color-surface-variant) 50%, transparent);
+  color: var(--color-on-surface);
+}
+
+.nav-item.active {
+  background: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+}
+
+/* ==========================================================================
+   20. Cards
+   ========================================================================== */
+
+.card {
+  background: var(--color-surface-container-lowest);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid color-mix(in srgb, var(--color-outline-variant) 20%, transparent);
+}
+
+.card-interactive {
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.card-interactive:hover {
+  border-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+  background: var(--color-surface-container-high);
+}
+
+/* ==========================================================================
+   21. Chips / Tags
+   ========================================================================== */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  border: none;
+}
+
+.chip-filled {
+  background: color-mix(in srgb, var(--color-primary-container) 40%, transparent);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary-container);
+}
+
+.chip-outlined {
+  background: var(--color-surface-container);
+  color: var(--color-on-surface-variant);
+  border: 1px solid color-mix(in srgb, var(--color-outline-variant) 30%, transparent);
+}
+
+.chip-outlined:hover {
+  background: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+  border-color: var(--color-primary-container);
+}
+
+/* ==========================================================================
+   22. Form Inputs
+   ========================================================================== */
+
+.input {
+  width: 100%;
+  background: var(--color-surface);
+  border: 1px solid color-mix(in srgb, var(--color-outline-variant) 50%, transparent);
+  border-radius: var(--radius-lg);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-on-surface);
+  outline: none;
+  transition: all var(--transition-normal);
+}
+
+.input::placeholder {
+  color: color-mix(in srgb, var(--color-on-surface-variant) 50%, transparent);
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 15%, transparent);
+}
+
+.textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  resize: none;
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: var(--color-on-surface);
+  outline: none;
+  padding: 0.5rem;
+  line-height: 1.6;
+}
+
+.textarea::placeholder {
+  color: color-mix(in srgb, var(--color-on-surface-variant) 60%, transparent);
+}
+
+/* ==========================================================================
+   23. Chat Styles
+   ========================================================================== */
+
+.chat-container {
+  flex: 1;
+  width: 100%;
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-bottom: 10rem;
+}
+
+.chat-bubble {
+  max-width: 85%;
+  padding: 1.25rem 1.5rem;
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.chat-bubble-user {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  border-radius: 1.25rem 1.25rem 0.25rem 1.25rem;
+  align-self: flex-end;
+  box-shadow: 0 4px 14px rgba(74, 124, 89, 0.15);
+}
+
+.chat-bubble-ai {
+  background: var(--color-surface-container);
+  color: var(--color-on-surface);
+  border-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
+  align-self: flex-start;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid color-mix(in srgb, var(--color-outline-variant) 10%, transparent);
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.chat-ai-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-container);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.chat-ai-avatar span {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 1.125rem;
+}
+
+.citation-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  background: color-mix(in srgb, var(--color-primary-container) 40%, transparent);
+  color: var(--color-primary);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  margin-left: 0.25rem;
+  transition: background var(--transition-fast);
+}
+
+.citation-badge:hover {
+  background: var(--color-primary-container);
+}
+
+.typing-indicator {
+  display: flex;
+  gap: 0.375rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--color-surface-container);
+  border-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
+  align-self: flex-start;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid color-mix(in srgb, var(--color-outline-variant) 10%, transparent);
+  align-items: center;
+}
+
+.typing-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-outline);
+  animation: typingBlink 1.4s infinite both;
+}
+
+.typing-dot:nth-child(1) { animation-delay: 0s; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+.chat-input-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to top, var(--color-background) 60%, transparent);
+  padding-top: 2.5rem;
+}
+
+.chat-input-box {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 0 2rem 2rem;
+}
+
+.chat-input-inner {
+  background: var(--color-surface-container-low);
+  border-radius: var(--radius-xl);
+  padding: 1rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid color-mix(in srgb, var(--color-outline-variant) 20%, transparent);
+  transition: all var(--transition-normal);
+}
+
+.chat-input-inner:focus-within {
+  border-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
+  box-shadow: var(--shadow-primary);
+}
+
+.chat-input-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding: 0 0.5rem;
+}
+
+.chat-input-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.send-btn {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 20px rgba(74, 124, 89, 0.2);
+}
+
+.send-btn:hover:not(:disabled) {
+  background: #2a6038;
+}
+
+.send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.disclaimer {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--color-on-surface-variant);
+  margin-top: 1rem;
+  opacity: 0.7;
+  font-family: var(--font-body);
+}
+
+/* ==========================================================================
+   24. Separator
+   ========================================================================== */
+
+.separator {
+  height: 1px;
+  background: color-mix(in srgb, var(--color-outline-variant) 30%, transparent);
+  margin: 0.5rem 0;
+}
+
+/* ==========================================================================
+   25. Responsive Overrides
+   ========================================================================== */
+
+@media (max-width: 767px) {
+  .chat-container {
+    padding: 1rem;
+  }
+
+  .chat-input-box {
+    padding: 0 1rem 1rem;
+  }
+
+  .chat-bubble {
+    max-width: 90%;
+  }
+
+  .dialog-content {
+    padding: 1.5rem;
+  }
+}
+
+/* ==========================================================================
+   26. Top Bar (Mobile)
+   ========================================================================== */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: var(--color-surface-container-low);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-outline-variant) 30%, transparent);
+}
+
+@media (min-width: 768px) {
+  .topbar {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   27. Account Settings — Bento Grid
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .card[style*="grid-column: span 8"],
+  .card[style*="grid-column: span 6"] {
+    grid-column: 1 / -1 !important;
+  }
+}
